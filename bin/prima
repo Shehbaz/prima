@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'prima'
+require 'trollop'
+
+opts = Trollop::options do
+    opt(:count, "Select amount of primes", type: :integer) 
+  end
+Trollop::die :count, "must be greater than 0 " if opts[:count].nil? ||  opts[:count] < 1  
+primes = Prima::Prima.new(opts[:count]).generate
+table = Prima::Table.generate(primes,:*)
+$stdout.puts(Prima::Table.print(primes,table))
